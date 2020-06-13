@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/lonchura/irismovie/web/controllers"
-	"github.com/lonchura/irismovie/datasource"
-	"github.com/lonchura/irismovie/repositories"
+	//"github.com/lonchura/irismovie/datasource"
+	"github.com/lonchura/irismovie/repositories/mysql"
 	"github.com/lonchura/irismovie/services"
 	"github.com/lonchura/irismovie/web/middleware"
 
@@ -43,7 +43,7 @@ func movies(app *mvc.Application) {
 	app.Router.Use(middleware.BasicAuth)
 
 	// 使用数据源中的一些（内存）数据创建 movie 的数据库。
-	repo := repositories.NewMovieRepository(datasource.Movies)
+	repo := mysql.NewMovieRepository()
 	// 创建 movie 的服务，我们将它绑定到 movie 应用程序。
 	movieService := services.NewMovieService(repo)
 	app.Register(movieService)
