@@ -3,6 +3,7 @@ package services
 import (
 	"github.com/lonchura/irismovie/datamodels"
 	"github.com/lonchura/irismovie/repositories"
+	"github.com/lonchura/irismovie/repositories/sql"
 )
 
 // `MovieService` 会处理一些 `movie` 数据模型层的 CRUID 操作
@@ -13,7 +14,7 @@ import (
 //因为我们可能需要在不的地方修改和尝试不同的逻辑
 type MovieService interface {
 	GetAll() []datamodels.Movie
-	//GetByID(id int64) (datamodels.Movie, bool)
+	GetByID(id int64) (datamodels.Movie, bool)
 	//DeleteByID(id int64) bool
 	//UpdatePosterAndGenreByID(id int64, poster string, genre string) (datamodels.Movie, error)
 }
@@ -37,11 +38,12 @@ func (s *movieService) GetAll() []datamodels.Movie {
 }
 
 // GetByID 根据 id 返回一个 movie .
-//func (s *movieService) GetByID(id int64) (datamodels.Movie, bool) {
-//	return s.repo.Select(func(m datamodels.Movie) bool {
-//		return m.ID == id
-//	})
-//}
+func (s *movieService) GetByID(id int64) (datamodels.Movie, bool) {
+	query := []*sql.Condition{
+		sql.NewCondition("id", "=", sql.NewValue(1, float64(id), "", nil, nil)),
+	}
+	return s.repo.Select(query)
+}
 
 // UpdatePosterAndGenreByID 更新 一个 movie 的 poster 和 genre 字段.
 //func (s *movieService) UpdatePosterAndGenreByID(id int64, poster string, genre string) (datamodels.Movie, error) {

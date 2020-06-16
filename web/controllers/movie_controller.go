@@ -33,9 +33,9 @@ func (c *MovieController) Get() (results []datamodels.Movie) {
 // GetBy 返回一个 movie
 // 演示:
 // curl -i http://localhost:8080/movies/1
-//func (c *MovieController) GetBy(id int64) (movie datamodels.Movie, found bool) {
-//	return c.Service.GetByID(id) // it will throw 404 if not found.
-//}
+func (c *MovieController) GetBy(id int64) (movie datamodels.Movie, found bool) {
+	return c.Service.GetByID(id) // it will throw 404 if not found.
+}
 
 // PutBy 更新一个movie
 // 演示:
